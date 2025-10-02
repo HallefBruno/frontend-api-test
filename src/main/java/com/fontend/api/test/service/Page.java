@@ -1,12 +1,32 @@
 package com.fontend.api.test.service;
 
-import java.util.List;
-
-
-public interface Page<T> {
+public class Page<T> {
 	
-	public int getTotalPages();
-	public long getTotalElements();
-	public List<T> getContent();
+	private int totalPages;
+	private long totalElements;
+
+	public Page(int totalPages, long totalElements) {
+		this.totalPages = totalPages;
+		this.totalElements = totalElements;
+	}
+
+	public Page() {
+	}
+	
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	public long getTotalElements() {
+		return totalElements;
+	}
+
+	public void setTotalElements(long totalElements) {
+		this.totalElements = totalElements;
+	}
 	
 }

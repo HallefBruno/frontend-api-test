@@ -4,6 +4,7 @@ import com.fontend.api.test.model.Person;
 import com.fontend.api.test.service.Page;
 import com.fontend.api.test.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,10 +35,16 @@ public class PersonController {
     }
 	
 	@GetMapping("/{pageNumber}/{pageSize}")
-	public ResponseEntity<?> pagePerson(@PathVariable(name = "pageNumber") int pageNumber,
+	public ModelAndView pagePerson(
+			@PathVariable(name = "pageNumber") int pageNumber, 
 			@PathVariable(name = "pageSize") int pageSize) {
-		personService.getPagePersons(pageNumber, pageSize);
-		return ResponseEntity.ok().build();
+		
+		var page = personService.getPagePersons(pageNumber, pageSize);
+		
+		ModelAndView mv = new ModelAndView("listPersons");
+		mv.addObject("page", page);
+		return mv;
+		
 	}
 	
 }

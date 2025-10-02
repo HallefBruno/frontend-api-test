@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Persons</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body>
+        
+        <div class="container pt-4 mb-4 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <table id="persons" style="width:100%" class="table table-hover caption-top">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="persons : ${page.content}">
+                            <tr>
+                                <td th:text="${persons.id}"></td>
+                                <td th:text="${persons.name}"></td>
+                                <td th:text="${persons.age}"></td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <a href="#" role="button" class="btn btn-outline-secondary btn-sm invock-gif" th:href="@{/persons/{codigo}(codigo=${persons.id})}">Editar</a>
+                                        <a href="#" role="button" class="btn btn-outline-secondary btn-sm js-exclusao-btn" data:url="@{/persons/{codigo}(codigo=${persons.id})}" data:objeto="${persons.name}">Excluir</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-sm">
+                            <li th:each="i : ${#numbers.sequence(0, page.page.totalPages-1)}" th:attr="class=${i==0 ? 'page-item active' : 'page-item'}">
+                                <a class="page-link" aria-current="page" th:href="@{/persons/{page}/{size}(page=${i}, size=10)}" th:text="${i+1}"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

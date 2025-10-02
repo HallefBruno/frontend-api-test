@@ -1,58 +1,29 @@
 package com.fontend.api.test.service;
 
-import java.util.Collections;
 import java.util.List;
 
-public class PageImpl<T> implements Pageable, Page<T> {
-	
-	public PageImpl() {}
+public class PageImpl<T> {
 	
 	private List<T> content;
-	private long totalElements;
-	private int totalPages;
-	private PageRequest pageable;
+	private Page page;
 	
-	public PageImpl(List<T> content, PageRequest pageable, long totalElements) {
-		this.content = content;
-		this.pageable = pageable;
-		this.totalElements = totalElements;
-	}
-	
-	@Override
-	public int getTotalPages() {
-		totalPages = (int) Math.ceil((float) totalElements/pageable.pageSize());
-		return totalPages;
+	public PageImpl() {
 	}
 
-	@Override
-	public long getTotalElements() {
-		return totalElements;
+	public Page getPage() {
+		return page;
 	}
 
-	@Override
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
 	public List<T> getContent() {
-		if(content == null) return Collections.emptyList();
 		return content;
 	}
 
-	@Override
-	public int pageNumber() {
-		return pageable.pageNumber();
-	}
-
-	@Override
-	public int pageSize() {
-		return pageable.pageSize();
-	}
-
-	@Override
-	public String getOrdenacao() {
-		return pageable.getOrdenacao();
-	}
-
-	@Override
-	public String getField() {
-		return pageable.getField();
+	public void setContent(List<T> content) {
+		this.content = content;
 	}
 
 }
